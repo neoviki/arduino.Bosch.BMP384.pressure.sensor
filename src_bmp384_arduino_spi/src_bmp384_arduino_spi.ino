@@ -2,53 +2,69 @@
 #include <SPI.h> 
 #include <Adafruit_Sensor.h> 
 #include "Adafruit_BMP3XX.h" 
-#define BMP_MOSI 8 
-#define BMP_MISO 9 
+
+
+//Breakout Board
+#if 0
+#define VOLT_SRC 8 /*Connect sensor voltage input vcc to this pin*/
+#define BMP_MOSI 9 
+#define BMP_MISO 10
+#define BMP_SCK 11 
+#define BMP_CS 12 
+#endif
+
+
+//Viki Board
+#if 1
+#define VOLT_SRC 8 /*Connect sensor voltage input vcc to this pin*/
+#define BMP_MOSI 9 
 #define BMP_SCK 10
-#define BMP_CS 11 
-
-
+#define BMP_MISO 11 
+#define BMP_CS 12 
+#endif
 
 #define SEALEVELPRESSURE_HPA (1013.25) 
-
+bool bmp_init_flag = false;
 Adafruit_BMP3XX bmp; 
 
-void setup() 
-{ 
-    Serial.begin(115200); 
-
-    while (!Serial); 
-
-    for(int i=0;i<2;i++){ 
-        delay(1000); Serial.println("Setup()"); 
-    } 
-
-    while(1)
-    {
-        delay(500);
+void init_bmp384()
+{
         digitalWrite(BMP_CS, LOW); 
-        delay(500);
-
         if (! bmp.begin_SPI(BMP_CS, BMP_SCK, BMP_MISO, BMP_MOSI)) 
         {  
-            delay(2000); Serial.println("2"); 
             Serial.println("Could not find a valid BMP3 sensor, check wiring!"); 
-        }else{
-            break;
+            return;
         } 
-    }  
-
-    delay(2000); Serial.println("3"); 
-    Serial.println("Init Success"); 
-    // Set up oversampling and filter initialization 
+    
     bmp.setTemperatureOversampling(BMP3_OVERSAMPLING_8X); 
     bmp.setPressureOversampling(BMP3_OVERSAMPLING_4X); 
     bmp.setIIRFilterCoeff(BMP3_IIR_FILTER_COEFF_3); 
     bmp.setOutputDataRate(BMP3_ODR_50_HZ); 
+    Serial.println("Init Success");
+    delay(100);
+    bmp_init_flag = true;
+}
+
+void setup() 
+{ 
+    int i;
+    Serial.begin(115200); 
+
+    while (!Serial); 
+
+    for( i=0;i<2;i++){ 
+        delay(100); Serial.println("Setup()"); 
+    } 
+
+    init_bmp384();
 } 
 
 void loop() { 
   
+  if(!bmp_init_flag){
+    init_bmp384();
+  }
+
   if (! bmp.performReading()) { 
     Serial.println("Failed to perform reading :("); 
     return; 
@@ -64,5 +80,6 @@ void loop() {
   Serial.print(bmp.readAltitude(SEALEVELPRESSURE_HPA)); 
   Serial.println(" m"); 
   Serial.println(); 
-  delay(2000); 
+
+  delay(500); 
 } 
