@@ -26,18 +26,18 @@
 #define SEALEVELPRESSURE_HPA (1013.25) 
 Adafruit_BMP3XX bmp; 
 
-void init_bmp384()
+bool init_bmp384()
 {
         static bool bmp_init_flag = false;
 
-        if(bmp_init_flag) return;
+        if(bmp_init_flag) return true;
 
         digitalWrite(BMP_CS, LOW);
          
         if (! bmp.begin_SPI(BMP_CS, BMP_SCK, BMP_MISO, BMP_MOSI)) 
         {  
             Serial.println("Could not find a valid BMP3 sensor, check wiring!"); 
-            return;
+            return false;
         } 
     
     bmp.setTemperatureOversampling(BMP3_OVERSAMPLING_8X);
@@ -51,6 +51,15 @@ void init_bmp384()
     Serial.println("Init Success");
     delay(100);
     bmp_init_flag = true;
+    return true;
+}
+
+void init_bmp384_unit_success()
+{
+  while(1){
+    if(init_bmp384()) break;
+    delay(500);
+  }
 }
 
 void setup() 
@@ -69,8 +78,9 @@ void setup()
 
 void loop() { 
   
-  init_bmp384();
-  
+  //init_bmp384();
+  init_bmp384_unit_success();
+
   if (! bmp.performReading()) { 
     Serial.println("Failed to perform reading :("); 
     return; 
