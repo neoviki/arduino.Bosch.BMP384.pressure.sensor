@@ -4,16 +4,6 @@
 #include "Adafruit_BMP3XX.h" 
 
 
-//Breakout Board
-#if 0
-#define VOLT_SRC 8 /*Connect sensor voltage input vcc to this pin*/
-#define BMP_MOSI 9 
-#define BMP_MISO 10
-#define BMP_SCK 11 
-#define BMP_CS 12 
-#endif
-
-
 //Viki Board
 #if 1
 #define BMP_CS 8 
@@ -78,24 +68,23 @@ void setup()
 
 void loop() { 
   
-  //init_bmp384();
-  init_bmp384_unit_success();
+  //init_bmp384_unit_success();
 
   if (! bmp.performReading()) { 
     Serial.println("Failed to perform reading :("); 
     return; 
   } 
 
-  Serial.print("Temperature = "); 
+  Serial.print("TEMPERATURE = "); 
   Serial.print(bmp.temperature); 
-  Serial.println(" *C"); 
-  Serial.print("Pressure = "); 
+  Serial.print(" *C"); 
+  Serial.print(" | PRESSURE = "); 
   Serial.print(bmp.pressure / 100.0); 
-  Serial.println(" hPa"); 
-  Serial.print("Approx. Altitude = "); 
+  Serial.print(" hPa"); 
+  Serial.print(" | ALTITUDE = "); 
   Serial.print(bmp.readAltitude(SEALEVELPRESSURE_HPA)); 
-  Serial.println(" m"); 
+  Serial.print(" m"); 
   Serial.println(); 
 
-  delay(1000); 
+  delay(500); 
 } 

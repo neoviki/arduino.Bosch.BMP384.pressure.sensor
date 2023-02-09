@@ -179,8 +179,7 @@ bool Adafruit_BMP3XX::_init(void) {
   Serial.print("Reset result: ");
   Serial.println(rslt);
 #endif
-  if (rslt != BMP3_OK)
-    return false;
+  if (rslt != BMP3_OK) return false;
 
   rslt = bmp3_init(&the_sensor);
 #ifdef BMP3XX_DEBUG
@@ -194,8 +193,7 @@ bool Adafruit_BMP3XX::_init(void) {
   Serial.println(rslt);
 #endif
 
-  if (rslt != BMP3_OK)
-    return false;
+  if (rslt != BMP3_OK) return false;
 
 #ifdef BMP3XX_DEBUG
   Serial.print("T1 = ");

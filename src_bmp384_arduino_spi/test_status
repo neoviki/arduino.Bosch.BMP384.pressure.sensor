@@ -1,0 +1,22 @@
+Test Status 1:
+
+    Board: Arduino DUE
+    Break Out Board: Prof
+    Sensor  : BMP388
+    Status : Passed  | Perfectly Working
+
+Test Status 2:
+
+    Board: Arduino DUE
+    Break Out Board: Prof
+    Sensor  : BMP384
+    Status : Partially Working
+
+    Issues:
+
+        - Altitue is not showing correctly
+        - Init is not succeeding, however I am receiving partially correct data at MISO Line ( Slave Sends partially correct information )
+
+
+
+
