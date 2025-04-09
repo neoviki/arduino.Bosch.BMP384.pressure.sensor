@@ -10,9 +10,7 @@ This project demonstrates how to interface the Bosch BMP384 pressure sensor with
 
 ## Project Structure
 
-/src
-  ├── /spi   - Arduino code to read pressure data from the BMP384 via SPI
-  └── /i2c   - Arduino code to read pressure data from the BMP384 via I2C
+<pre> ```bash /src ├── /spi - Arduino code to read pressure data from the BMP384 via SPI └── /i2c - Arduino code to read pressure data from the BMP384 via I2C ``` </pre>
 
 ## Tested Hardware
 
