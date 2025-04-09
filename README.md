@@ -32,6 +32,6 @@ This project demonstrates how to interface the Bosch BMP384 pressure sensor with
 
 For the pin diagram and wiring details, please refer to the official datasheet:
 
-    - [BMP384 Datasheet (bst-bmp384-ds003.pdf)](datasheet/bst-bmp384-ds003.pdf)
+[BMP384 Datasheet (bst-bmp384-ds003.pdf)](datasheet/bst-bmp384-ds003.pdf)
 
 Ensure to follow the wiring instructions for proper connectivity and configuration.
